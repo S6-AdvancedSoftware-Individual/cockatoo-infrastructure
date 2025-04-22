@@ -1,0 +1,38 @@
+services:
+  cockatoo-accounts-api:
+    extends:
+      file: ../../cockatoo-accounts-service/docker-compose.yml
+      service: cockatoo-accounts-api
+    networks:
+      - cockatoo-network
+
+  cockatoo-gateway:
+    build:
+      context: ../../cockatoo-gateway/CockatooGateway
+      dockerfile: Dockerfile
+    container_name: cockatoo-gateway
+    ports:
+      - "5000:5000"
+    networks:
+      - cockatoo-network
+
+  cockatoo-posts-api:
+    extends:
+      file: ../../cockatoo-post-service/docker-compose.yml
+      service: cockatoo-posts-api
+    networks:
+      - cockatoo-network
+
+  cockatoo-frontend:
+    build:
+      context: ../../cockatoo-frontend/cockatoo
+      dockerfile: Dockerfile
+    container_name: cockatoo-frontend
+    ports:
+      - "5173:80"
+    networks:
+      - cockatoo-network
+
+networks:
+  cockatoo-network:
+    driver: bridge

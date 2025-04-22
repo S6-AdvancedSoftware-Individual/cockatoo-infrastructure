@@ -1,0 +1,12 @@
+apiVersion: v1
+data:
+  DB_DATABASE: postgres
+  DB_PASSWORD: 3FTpbJQJ9rZmFQNM
+  DB_PORT: "5432"
+  DB_SERVER: aws-0-us-east-2.pooler.supabase.com
+  DB_USERID: postgres.kmrcrlsabqcgdnenrnmo
+kind: ConfigMap
+metadata:
+  labels:
+    io.kompose.service: cockatoo-posts-api-cockatoo-posts-api-env
+  name: cockatoo-posts-api-env

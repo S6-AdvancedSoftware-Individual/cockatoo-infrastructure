@@ -24,29 +24,29 @@ spec:
         - env:
             - name: DB_DATABASE
               valueFrom:
-                configMapKeyRef:
-                  key: DB_DATABASE
-                  name: cockatoo-posts-api-env
+                secretKeyRef:
+                  name: cockatoo-posts-secret
+                  key: DB_POSTS_DATABASE
             - name: DB_PASSWORD
               valueFrom:
-                configMapKeyRef:
-                  key: DB_PASSWORD
-                  name: cockatoo-posts-api-env
+                secretKeyRef:
+                  name: cockatoo-posts-secret
+                  key: DB_POSTS_PASSWORD
             - name: DB_PORT
               valueFrom:
-                configMapKeyRef:
-                  key: DB_PORT
-                  name: cockatoo-posts-api-env
+                secretKeyRef:
+                  name: cockatoo-posts-secret
+                  key: DB_POSTS_PORT
             - name: DB_SERVER
               valueFrom:
-                configMapKeyRef:
-                  key: DB_SERVER
-                  name: cockatoo-posts-api-env
+                secretKeyRef:
+                  name: cockatoo-posts-secret
+                  key: DB_POSTS_SERVER
             - name: DB_USERID
               valueFrom:
-                configMapKeyRef:
-                  key: DB_USERID
-                  name: cockatoo-posts-api-env
+                secretKeyRef:
+                  name: cockatoo-posts-secret
+                  key: DB_POSTS_USERID
           image: cockatoo-posts-api
           name: cockatoo-posts-api
           imagePullPolicy: IfNotPresent

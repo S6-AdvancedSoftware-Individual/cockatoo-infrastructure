@@ -1,8 +1,63 @@
-# Running minikube
+# Index
+
+- [Index](#index)
+  - [Running minikube](#running-minikube)
+  - [Refresh .env secrets](#refresh-env-secrets)
+    - [Reload deployments](#reload-deployments)
+    - [Validate existence of secrets](#validate-existence-of-secrets)
+    - [Validate logs](#validate-logs)
+  - [Building images](#building-images)
+  - [Validate existence of Docker Images](#validate-existence-of-docker-images)
+  - [Adding Docker (local) images to cache](#adding-docker-local-images-to-cache)
+  - [Validate Docker Images are present in MiniKube](#validate-docker-images-are-present-in-minikube)
+  - [Use local images configuration](#use-local-images-configuration)
+  - [Check \& port foward](#check--port-foward)
+
+## Running minikube
+
+Create a local `.env` file with the following data:
+
+```plaintext
+DB_POSTS_USERID=
+DB_POSTS_PASSWORD=
+DB_POSTS_SERVER=
+DB_POSTS_PORT=
+DB_POSTS_DATABASE=
+
+DB_ACCOUNTS_USERID=
+DB_ACCOUNTS_PASSWORD=
+DB_ACCOUNTS_SERVER=
+DB_ACCOUNTS_PORT=
+DB_ACCOUNTS_DATABASE=
+```
+
+Run
+
+`kubectl apply -f .`
+
+## Refresh .env secrets
 
 ```ps
-kubectl apply -f .
+kubectl delete secret cockatoo-global-secret
+kubectl create secret generic cockatoo-global-secret --from-env-file=.env
 ```
+
+### Reload deployments
+
+For accounts service
+`kubectl rollout restart deployment/cockatoo-accounts-api`
+
+For posts service
+`kubectl rollout restart deployment/cockatoo-posts-api`
+
+### Validate existence of secrets
+
+`kubectl get secret cockatoo-global-secret -o jsonpath='{.data}'`
+
+### Validate logs
+
+`kubectl logs -f deployment/cockatoo-accounts-api --tail=50`
+`kubectl logs -f deployment/cockatoo-posts-api --tail=50`
 
 ## Building images
 

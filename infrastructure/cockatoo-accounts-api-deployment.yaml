@@ -24,29 +24,29 @@ spec:
         - env:
             - name: DB_DATABASE
               valueFrom:
-                configMapKeyRef:
-                  key: DB_DATABASE
-                  name: cockatoo-accounts-api-env
+                secretKeyRef: # Changed from configMapKeyRef
+                  name: cockatoo-accounts-secret
+                  key: DB_ACCOUNTS_DATABASE
             - name: DB_PASSWORD
               valueFrom:
-                configMapKeyRef:
-                  key: DB_PASSWORD
-                  name: cockatoo-accounts-api-env
+                secretKeyRef:
+                  name: cockatoo-accounts-secret
+                  key: DB_ACCOUNTS_PASSWORD
             - name: DB_PORT
               valueFrom:
-                configMapKeyRef:
-                  key: DB_PORT
-                  name: cockatoo-accounts-api-env
+                secretKeyRef:
+                  name: cockatoo-accounts-secret
+                  key: DB_ACCOUNTS_PORT
             - name: DB_SERVER
               valueFrom:
-                configMapKeyRef:
-                  key: DB_SERVER
-                  name: cockatoo-accounts-api-env
+                secretKeyRef:
+                  name: cockatoo-accounts-secret
+                  key: DB_ACCOUNTS_SERVER
             - name: DB_USERID
               valueFrom:
-                configMapKeyRef:
-                  key: DB_USERID
-                  name: cockatoo-accounts-api-env
+                secretKeyRef:
+                  name: cockatoo-accounts-secret
+                  key: DB_ACCOUNTS_USERID
           image: cockatoo-accounts-api
           name: cockatoo-accounts-api
           imagePullPolicy: IfNotPresent

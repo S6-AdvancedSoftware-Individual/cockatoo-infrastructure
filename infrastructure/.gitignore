@@ -1,0 +1,5 @@
+# Kompose-generated ConfigMaps
+*-env-configmap.yaml
+
+# Local environment files
+.env

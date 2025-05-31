@@ -21,9 +21,9 @@ spec:
         io.kompose.service: cockatoo-frontend
     spec:
       containers:
-        - image: cockatoo-frontend
+        - image: theartcher/cockatoo-frontend
           name: cockatoo-frontend
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
               protocol: TCP

@@ -25,34 +25,74 @@ spec:
             - name: DB_DATABASE
               valueFrom:
                 secretKeyRef:
-                  name: cockatoo-posts-secret
+                  name: cockatoo-global-secret
                   key: DB_POSTS_DATABASE
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: cockatoo-posts-secret
+                  name: cockatoo-global-secret
                   key: DB_POSTS_PASSWORD
             - name: DB_PORT
               valueFrom:
                 secretKeyRef:
-                  name: cockatoo-posts-secret
+                  name: cockatoo-global-secret
                   key: DB_POSTS_PORT
             - name: DB_SERVER
               valueFrom:
                 secretKeyRef:
-                  name: cockatoo-posts-secret
+                  name: cockatoo-global-secret
                   key: DB_POSTS_SERVER
             - name: DB_USERID
               valueFrom:
                 secretKeyRef:
-                  name: cockatoo-posts-secret
+                  name: cockatoo-global-secret
                   key: DB_POSTS_USERID
-          image: cockatoo-posts-api
+            - name: DB_SEARCH_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: cockatoo-global-secret
+                  key: DB_SEARCH_DATABASE
+            - name: DB_SEARCH_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cockatoo-global-secret
+                  key: DB_SEARCH_PASSWORD
+            - name: DB_SEARCH_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: cockatoo-global-secret
+                  key: DB_SEARCH_PORT
+            - name: DB_SEARCH_SERVER
+              valueFrom:
+                secretKeyRef:
+                  name: cockatoo-global-secret
+                  key: DB_SEARCH_SERVER
+            - name: DB_SEARCH_USERID
+              valueFrom:
+                secretKeyRef:
+                  name: cockatoo-global-secret
+                  key: DB_SEARCH_USERID
+            - name: BETTERSTACK_SOURCETOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: cockatoo-global-secret
+                  key: BETTERSTACK_SOURCETOKEN
+            - name: BETTERSTACK_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  name: cockatoo-global-secret
+                  key: BETTERSTACK_ENDPOINT
+          image: theartcher/cockatoo-posts-microservice
           name: cockatoo-posts-api
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
               protocol: TCP
             - containerPort: 8081
               protocol: TCP
+          resources:
+            limits:
+              cpu: 400m
+            requests:
+              cpu: 300m
       restartPolicy: Always

@@ -1,12 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: C:\Users\joris\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert
-    kompose.version: 1.35.0 (9532ceef3)
+  name: cockatoo-gateway
   labels:
     io.kompose.service: cockatoo-gateway
-  name: cockatoo-gateway
 spec:
   replicas: 1
   selector:
@@ -14,17 +11,40 @@ spec:
       io.kompose.service: cockatoo-gateway
   template:
     metadata:
-      annotations:
-        kompose.cmd: C:\Users\joris\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert
-        kompose.version: 1.35.0 (9532ceef3)
       labels:
         io.kompose.service: cockatoo-gateway
     spec:
       containers:
-        - image: cockatoo-gateway
-          name: cockatoo-gateway
-          imagePullPolicy: IfNotPresent
+        - name: cockatoo-gateway
+          image: theartcher/cockatoo-gateway
+          imagePullPolicy: Always
           ports:
             - containerPort: 5000
               protocol: TCP
+          resources:
+            limits:
+              cpu: 400m
+            requests:
+              cpu: 200m
+          env:
+            - name: BETTERSTACK_SOURCETOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: cockatoo-global-secret
+                  key: BETTERSTACK_SOURCETOKEN
+            - name: BETTERSTACK_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  name: cockatoo-global-secret
+                  key: BETTERSTACK_ENDPOINT
+            - name: AUTH0_DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  name: cockatoo-global-secret
+                  key: AUTH0_DOMAIN
+            - name: AUTH0_AUDIENCE
+              valueFrom:
+                secretKeyRef:
+                  name: cockatoo-global-secret
+                  key: AUTH0_AUDIENCE
       restartPolicy: Always

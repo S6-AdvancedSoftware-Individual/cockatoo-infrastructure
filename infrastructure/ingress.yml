@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vue-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-http
+spec:
+  tls:
+    - hosts:
+        - 131.189.152.107.nip.io
+      secretName: vue-app-tls
+  rules:
+    - host: 131.189.152.107.nip.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: cockatoo-frontend
+                port:
+                  number: 5173
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: cockatoo-gateway
+                port:
+                  number: 5000

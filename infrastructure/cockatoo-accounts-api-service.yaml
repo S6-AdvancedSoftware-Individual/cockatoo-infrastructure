@@ -8,7 +8,6 @@ metadata:
     io.kompose.service: cockatoo-accounts-api
   name: cockatoo-accounts-api
 spec:
-  type: NodePort # Change the service type to NodePort
   ports:
     - name: "9080"
       port: 9080

@@ -24,32 +24,32 @@ spec:
         - env:
             - name: DB_DATABASE
               valueFrom:
-                secretKeyRef: # Changed from configMapKeyRef
-                  name: cockatoo-accounts-secret
+                secretKeyRef:
+                  name: cockatoo-global-secret
                   key: DB_ACCOUNTS_DATABASE
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: cockatoo-accounts-secret
+                  name: cockatoo-global-secret
                   key: DB_ACCOUNTS_PASSWORD
             - name: DB_PORT
               valueFrom:
                 secretKeyRef:
-                  name: cockatoo-accounts-secret
+                  name: cockatoo-global-secret
                   key: DB_ACCOUNTS_PORT
             - name: DB_SERVER
               valueFrom:
                 secretKeyRef:
-                  name: cockatoo-accounts-secret
+                  name: cockatoo-global-secret
                   key: DB_ACCOUNTS_SERVER
             - name: DB_USERID
               valueFrom:
                 secretKeyRef:
-                  name: cockatoo-accounts-secret
+                  name: cockatoo-global-secret
                   key: DB_ACCOUNTS_USERID
-          image: cockatoo-accounts-api
+          image: theartcher/cockatoo-accounts-microservice
           name: cockatoo-accounts-api
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
               protocol: TCP
